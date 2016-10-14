@@ -1,0 +1,239 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<meta name="description" content="Cours TypeScript donné aux étudiants de Master 2 à l'UBO'">
+	<meta name="author" content="Jean-François Le Foll">
+
+	<title>TypeScript</title>
+
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/beige.css">
+	<link rel="stylesheet" href="plugin/highlight/github.css">
+
+	<!-- Printing and PDF exports -->
+	<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section>
+				<h2>TypeScript</h2>
+				<p>
+					<small> <a href="http://jefflefoll.github.io" target="_blank">Jean-François Le Foll</a> / <a href="http://twitter.com/JeffLeFoll">@JeffLeFoll</a></small>
+				</p>
+			</section>
+
+			<section>
+				<ol>
+					<li></li>
+				</ol>
+			</section>
+
+			<section id="presentation">
+				<h2>Présentataion</h2>
+				<ul>
+					<li>Sur-couche de JavaScript</li>
+					<li>Compilé en Javascript simple (ECMAScript 3 et +)</li>
+					<li>Transforme Javascript en language statiquement typé</li>
+				</ul>
+			</section>
+
+			<section id="type">
+				<h2>Les types</h2>
+				<p>Des languages dynamiquements typés (Javascript, Smalltalk, Python, Ruby) et des statiquements typé (C++, Java, C#</p>
+			</section>
+
+			<section id="install">
+				<h2><code>npm install -g typescript</code></h2>
+			</section>
+
+			<section id="typesDeBase">
+				<h2>Les types de base</h2>
+				<ul>
+					<li>boolean</li>
+					<li>string</li>
+					<li>number</li>
+					<li>Array&lt;T&gt; / T[]</li>
+					<li>enum Nom {.,.,.}</li>
+					<li>any</li>
+					<li>void</li>
+					<li>null et undefined</li>
+					<li>never</li>
+				</ul>
+			</section>
+
+			<section id="variables">
+				<h2>Déclaration de variables</h2>
+				<p>Oubliez le <code>var</code></p>
+				<p>Utilisez <code>let</code> ou <code>const</code></p>
+			</section>
+
+			<section id="interface">
+				<h2>Les intefaces</h2>
+				<pre><code> interface Personne {
+	nom: string;
+	prenom: string;
+	readonly dateDeNaissance: string;
+	numeroTelephone?: string;
+
+	estMajeur(): boolean;
+}</code></pre>
+			</section>
+
+			<section id="classe">
+				<h2>Les classes</h2>
+				<pre><code>class Employe implements Personne {
+    public numeroTelephone;
+    private _email;
+
+    constructor(public nom, public prenom, readonly dateDeNaissance) {}
+
+	get email(): string {
+		return this._email;
+	}
+
+	set email(nouvelEmail: string): string {
+		this._email = nouvelEmail;
+	}
+
+    public estMajeur() { return true; }
+}</code></pre>
+			</section>
+
+			<section id="abstract">
+				<section>
+					<h2>Les classes abstraites</h2>
+					<pre><code>abstract class Department {
+    constructor(public name: string) { }
+
+    printName(): void {
+        console.log("Department name: " + this.name);
+    }
+	
+    abstract printMeeting(): void;
+}</code></pre>
+				</section>
+				<section>
+					<pre><code>class AccountingDepartment extends Department {
+    constructor() {
+        super("Accounting and Auditing");
+    }
+
+    printMeeting(): void {
+        console.log("The Accounting Dpt meets each Monday at 10am.");
+    }
+
+    generateReports(): void {
+        console.log("Generating accounting reports...");
+    }
+}</code></pre>
+				</section>
+			</section>
+
+			<section id="generic">
+				<h2>Les generiques</h2>
+				<pre><code>interface Dépôt&lt;T&gt; {
+    créer(donnée: T): void;
+    rechercherParId(id: string): T;
+}
+
+class DépôtDEmploye implements Dépôt&lt;Employe&gt; {
+    créer(donnée: Employe) {}
+    rechercherParId(id: string): Employe {
+        return new Employe('', '', '');
+    }
+}</code></pre>
+			</section>
+
+			<section id="iterator">
+				<h2>Les itérateurs</h2>
+				<pre><code>let list = [4, 5, 6];
+
+for (let i in list) {
+   console.log(i); // "0", "1", "2",
+}
+
+for (let i of list) {
+   console.log(i); // "4", "5", "6"
+}</code></pre>
+			</section>
+
+			<section id="namespace">
+				<h2>Les namespaces</h2>
+				<p>Permet d'organiser et de structurer le code.</p>
+				<pre><code>namespace Polygons {
+        export class Triangle { }
+        export class Square { }
+    }
+}</code></pre>
+				<code><pre> /// &lt;reference path="polygons.ts" /&gt;
+
+let sq = new Polygons.Square();</code></pre>
+			</section>
+
+			<section id="module">
+				<section>
+					<h2>Les modules</h2>
+					<p>Concepte partagé avec EcmaScript2015, le module est executé dans sont propre scope et n'est pas visible de l'exterieur
+						à mois d'etre exporté.</p>
+					<p>Tous fichiers commençant par <code>import</code> ou <code>export</code> est considéré comme un module.</p>
+					<p>Au runtime, nécessite un chargeur de module (CommonJS, require.js, ...)</p>
+				</section>
+
+				<section>
+					<code><pre>export const formatNombre = /^[0-9]+$/;
+export function validerNombre(){}
+
+// validateur.ts
+export interface Validateur {}
+
+// validateurDeNombre.ts
+import { Validateur } from './validateur';
+export class ValNumber implements Validateur { }</code></pre>
+				</section>
+			</section>
+
+			<section id="declaration">
+				<h2>Les fichiers de déclaration</h2>
+			</section>
+
+			<section>
+			</section>
+
+			<section>
+				<a href="?print-pdf">Imprimer les slides (nécessite Chrome)</a>
+			</section>
+		</div>
+	</div>
+
+	<script src="lib/js/head.min.js"></script>
+	<script src="js/reveal.js"></script>
+
+	<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				history: true,
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+</body>
+
+</html>
