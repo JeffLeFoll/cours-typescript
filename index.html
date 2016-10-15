@@ -27,14 +27,14 @@
 <body>
 	<div class="reveal">
 		<div class="slides">
-			<section>
+			<section id="cover">
 				<h2>TypeScript</h2>
 				<p>
 					<small> <a href="http://jefflefoll.github.io" target="_blank">Jean-François Le Foll</a> / <a href="http://twitter.com/JeffLeFoll">@JeffLeFoll</a></small>
 				</p>
 			</section>
 
-			<section>
+			<section id="index">
 				<ol>
 					<li></li>
 				</ol>
@@ -94,61 +94,61 @@
 			<section id="classe">
 				<h2>Les classes</h2>
 				<pre><code>class Employe implements Personne {
-    public numeroTelephone;
-    private _email;
+  public numeroTelephone;
+  private _email;
 
-    constructor(public nom, public prenom, readonly dateDeNaissance) {}
+  constructor(public nom, public prenom, readonly dateDeNaissance) {}
 
-	get email(): string {
-		return this._email;
-	}
+  get email(): string {
+    return this._email;
+  }
 
-	set email(nouvelEmail: string): string {
-		this._email = nouvelEmail;
-	}
+  set email(nouvelEmail: string): string {
+    this._email = nouvelEmail;
+  }
 
-    public estMajeur() { return true; }
+  public estMajeur() { return true; }
 }</code></pre>
 			</section>
 
 			<section id="abstract">
-				<section>
+				<section id="abstractEx">
 					<h2>Les classes abstraites</h2>
 					<pre><code>abstract class Department {
-    constructor(public name: string) { }
+  constructor(public name: string) { }
 
-    printName(): void {
-        console.log("Department name: " + this.name);
-    }
-	
-    abstract printMeeting(): void;
+  printName(): void {
+    console.log("Department name: " + this.name);
+  }
+		
+	abstract printMeeting(): void;
 }</code></pre>
 				</section>
-				<section>
+				<section id="extend">
 					<pre><code>class AccountingDepartment extends Department {
-    constructor() {
-        super("Accounting and Auditing");
-    }
+  constructor() {
+    super("Accounting and Auditing");
+	}
 
-    printMeeting(): void {
-        console.log("The Accounting Dpt meets each Monday at 10am.");
-    }
+  printMeeting(): void {
+    console.log("The Accounting Dpt meets each Monday at 10am.");
+  }
 
-    generateReports(): void {
-        console.log("Generating accounting reports...");
-    }
+  generateReports(): void {
+    console.log("Generating accounting reports...");
+  }
 }</code></pre>
 				</section>
 			</section>
 
 			<section id="generic">
 				<h2>Les generiques</h2>
-				<pre><code>interface Dépôt&lt;T&gt; {
+				<pre><code>interface Depot&lt;T&gt; {
     créer(donnée: T): void;
     rechercherParId(id: string): T;
 }
 
-class DépôtDEmploye implements Dépôt&lt;Employe&gt; {
+class DepotDEmploye implements Depot&lt;Employe&gt; {
     créer(donnée: Employe) {}
     rechercherParId(id: string): Employe {
         return new Employe('', '', '');
@@ -182,16 +182,17 @@ for (let i of list) {
 let sq = new Polygons.Square();</code></pre>
 			</section>
 
-			<section id="module">
-				<section>
+			<section id="modules">
+				<section id="modulesInfos">
 					<h2>Les modules</h2>
 					<p>Concepte partagé avec EcmaScript2015, le module est executé dans sont propre scope et n'est pas visible de l'exterieur
-						à mois d'etre exporté.</p>
-					<p>Tous fichiers commençant par <code>import</code> ou <code>export</code> est considéré comme un module.</p>
+						à moins d'être exporté.</p>
+					<p>Tout fichier commençant par <code>import</code> ou <code>export</code> est considéré comme un module.</p>
 					<p>Au runtime, nécessite un chargeur de module (CommonJS, require.js, ...)</p>
 				</section>
 
-				<section>
+				<section id="modulesEx">
+					<p>Exemples:</p>
 					<code><pre>export const formatNombre = /^[0-9]+$/;
 export function validerNombre(){}
 
@@ -200,18 +201,37 @@ export interface Validateur {}
 
 // validateurDeNombre.ts
 import { Validateur } from './validateur';
-export class ValNumber implements Validateur { }</code></pre>
+export class ValNumber implements Validateur { }
+
+// util.ts
+export default class extends ValNumber { }
+
+// app.ts
+import toto from './util';
+</code></pre>
 				</section>
+			</section>
+
+			<section id="namespaceOuModule">
+				<h2>Alors? Namespace ou module ?</h2>
+				<p>Les Namespaces ne sont que des Object JavaScript stocké dans le namespace global JS.</p>
+				<p>=&gt; difficile d'identifier les dépendances.</p>
+				<br>
+				<p>Les modules eux déclarent leurs dépendances.</p>
+				<p>=&gt; meilleur isolation, réutilisabilté et maintenabilité.</p>
 			</section>
 
 			<section id="declaration">
 				<h2>Les fichiers de déclaration</h2>
+				<p>les fichiers <code>.d.ts</code> permettent de fournir une définission d'un module / API / etc... Même si celui ci n'est pas écrit en TypeScript.</p>
+				<p>Ils permettent d'avoir les outils comment l'auto-complétion même sur du code JS</p>
+				<p>Installés soit avec l'outils <code>typings</code> soit avec <code>npm</code> depuis TypeScript 2.</p>
 			</section>
 
 			<section>
 			</section>
 
-			<section>
+			<section ="impression">
 				<a href="?print-pdf">Imprimer les slides (nécessite Chrome)</a>
 			</section>
 		</div>
