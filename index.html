@@ -48,8 +48,9 @@
 					<li>Les itérateurs</li>
 					<li>Les namespaces</li>
 					<li>Les modules</li>
+					<li>Les décorateurs</li>
 					<li>Les fichiers de déclaration</li>
-
+					<li>Le compilateur</li>
 				</ol>
 			</section>
 
@@ -234,15 +235,46 @@ import toto from './util';
 				<p>=&gt; meilleur isolation, réutilisabilté et maintenabilité.</p>
 			</section>
 
+			<section id="decorators">
+				<section id="explications">
+					<h2>Les décorateurs</h2>
+					<p>Ce sont des annotations qui peuvent être attachés à des classes, fonctions, champs, paramètres mais pas aux constructeurs.</p>
+					<p>Elles prennent la forme <code>@expression</code> où <code>expression</code> est une fonction.</p>
+					<p>Pour les utiliser, il faut compiler au moins en ES5 et préciser le flag <code>experimentalDecorators</code>.</p>
+				</section>
+
+				<section id='exemplesDecorateur'>
+					<code><pre>// trace.ts
+export let Trace = function(target: Object, key: string, descriptor: any) {
+  console.log(`Passage dans la fonction ${key}`);
+}
+
+// programme.ts
+@Trace
+private soumettreLIndexAuxRègles( index: number): string {...}</code></pre>
+					<p>Les signatures des différents décorateurs sont visibles <a href="https://github.com/Microsoft/TypeScript/blob/master/lib/lib.d.ts#L1308-L1311" target="_blank">dans le lib.d.ts</a> (dans VS Code <code>ctrl + p #Decorator</code>).</p>
+				</section>
+			</section>
+
 			<section id="declaration">
 				<h2>Les fichiers de déclaration</h2>
 				<p>les fichiers <code>.d.ts</code> permettent de fournir une définission d'un module / API / etc... Même si celui ci n'est
 					pas écrit en TypeScript.</p>
 				<p>Ils permettent d'avoir les outils comment l'auto-complétion même sur du code JS</p>
-				<p>Installés soit avec l'outils <code>typings</code> soit avec <code>npm</code> depuis TypeScript 2.</p>
+				<p>Installés soit avec l'outils <code>typings</code> soit avec <code>npm</code> depuis TypeScript 2 (identifiés par le @types).</p>
 			</section>
 
-
+			<section id="compilateur">
+				<h2>Le compilateur</h2>
+				<p>Le compilateur se configure grace au fichier <code>tsconfig.json</code>.</p>
+					<code><pre>{
+    "compilerOptions": {
+        "target": "ES5",
+        "experimentalDecorators": true
+    }
+}</code></pre>
+				<p>Les différentes options sont expliqués sur <a href="https://www.typescriptlang.org/docs/handbook/compiler-options.html"" target="_blank">https://www.typescriptlang.org/docs/handbook/compiler-options.html</a>.</p>
+			</section>
 
 			<section id="impression">
 				<a href="?print-pdf">Imprimer les slides (nécessite Chrome)</a>
