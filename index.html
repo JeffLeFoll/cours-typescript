@@ -65,7 +65,7 @@
 
 			<section id="type">
 				<h2>Le typage</h2>
-				<p>Des languages dynamiquements typés (Javascript, Smalltalk, Python, Ruby) et des statiquements typés (C++, Java, C#</p>
+				<p>Des languages dynamiquements typés (Javascript, Smalltalk, Python, Ruby) et des statiquements typés (C++, Java, C#)</p>
 			</section>
 
 			<section id="install">
@@ -117,11 +117,11 @@
     return this._email;
   }
 
-  set email(nouvelEmail: string): string {
+  set email(nouvelEmail: string): void {
     this._email = nouvelEmail;
   }
 
-  public estMajeur() { return true; }
+  public estMajeur(): boolean { return true; }
 }</code></pre>
 			</section>
 
@@ -252,7 +252,8 @@ export let Trace = function(target: Object, key: string, descriptor: any) {
 // programme.ts
 @Trace
 private soumettreLIndexAuxRègles( index: number): string {...}</code></pre>
-					<p>Les signatures des différents décorateurs sont visibles <a href="https://github.com/Microsoft/TypeScript/blob/master/lib/lib.d.ts#L1308-L1311" target="_blank">dans le lib.d.ts</a> (dans VS Code <code>ctrl + p #Decorator</code>).</p>
+					<p>Les signatures des différents décorateurs sont visibles <a href="https://github.com/Microsoft/TypeScript/blob/master/lib/lib.d.ts#L1308-L1311"
+							target="_blank">dans le lib.d.ts</a> (dans VS Code <code>ctrl + p #Decorator</code>).</p>
 				</section>
 			</section>
 
@@ -267,13 +268,25 @@ private soumettreLIndexAuxRègles( index: number): string {...}</code></pre>
 			<section id="compilateur">
 				<h2>Le compilateur</h2>
 				<p>Le compilateur se configure grace au fichier <code>tsconfig.json</code>.</p>
-					<code><pre>{
+				<code><pre>{
     "compilerOptions": {
         "target": "ES5",
         "experimentalDecorators": true
     }
 }</code></pre>
-				<p>Les différentes options sont expliqués sur <a href="https://www.typescriptlang.org/docs/handbook/compiler-options.html" target="_blank">https://www.typescriptlang.org/docs/handbook/compiler-options.html</a>.</p>
+				<p>Les différentes options sont expliqués sur <a href="https://www.typescriptlang.org/docs/handbook/compiler-options.html"
+						target="_blank">https://www.typescriptlang.org/docs/handbook/compiler-options.html</a>.</p>
+			</section>
+
+			<section id="tp">
+				<h2>TP: le FizzBuzz</h2>
+				<ul>
+					<li>Écrire un programme qui affiche les entiers de 0 à 100. </li>
+					<li>Pour les multiples de 3 remplacer le nombre par fizz.</li>
+					<li>Pour les multiples de 5 remplacer le nombre par buzz.</li>
+					<li>Pour les multiples de 3 et 5 remplacer le nombre par fizzbuzz.</li>
+					<li>Utiliser les particularités du language et les principes de la programmation orienté objet par classe pour refactorer votre code.</li>
+				</ul>
 			</section>
 
 			<section id="impression">
