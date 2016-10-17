@@ -13,8 +13,8 @@ class Employe implements Personne {
     public numeroTelephone;
     readonly dateDeNaissance: string;
 
-    constructor(public nom, public prenom, dateDeNaissance) {
-        this.dateDeNaissance = dateDeNaissance;
+    constructor(public nom, public prenom, private dateNaissance) {
+        this.dateDeNaissance = dateNaissance;
     }
 
     public estMajeur(dateNaissance: string, ...autres: string[]) {
