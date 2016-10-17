@@ -1,21 +1,24 @@
 
 interface Personne {
-	nom: string;
-	prenom: string;
-	readonly dateDeNaissance: string;
-	numeroTelephone?: string;
+    nom: string;
+    prenom: string;
+    readonly dateDeNaissance: string;
+    numeroTelephone?: string;
 
-	estMajeur(dateNaissance: string, ...autres: string[]): boolean;
+    estMajeur(dateNaissance: string, ...autres: string[]): boolean;
 }
 
 class Employe implements Personne {
 
     public numeroTelephone;
+    readonly dateDeNaissance: string;
 
-    constructor(public nom, public prenom, readonly dateDeNaissance) {}
+    constructor(public nom, public prenom, dateDeNaissance) {
+        this.dateDeNaissance = dateDeNaissance;
+    }
 
     public estMajeur(dateNaissance: string, ...autres: string[]) {
-        return true ;
+        return true;
     }
 }
 
@@ -50,7 +53,7 @@ interface Dépôt<T> {
 }
 
 class DépôtDEmploye implements Dépôt<Employe> {
-    créer(donnée: Employe) {}
+    créer(donnée: Employe) { }
     rechercherParId(id: string): Employe {
         return new Employe('', '', '');
     }
